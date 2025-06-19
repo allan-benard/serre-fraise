@@ -1,0 +1,219 @@
+.sensors-main {
+  margin-top: 70px;
+  padding: 30px 0;
+  min-height: calc(100vh - 70px);
+}
+
+.sensors-main h1 {
+  font-size: 2.5rem;
+  color: var(--text-color);
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.sensors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.sensor-panel {
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.panel-header {
+  background: linear-gradient(135deg, var(--primary-color), #c53030);
+  color: var(--white);
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.panel-header i {
+  font-size: 1.5rem;
+}
+
+.panel-header h3 {
+  font-size: 1.3rem;
+}
+
+.panel-content {
+  padding: 25px;
+}
+
+.current-value {
+  text-align: center;
+  margin-bottom: 25px;
+  padding: 20px;
+  background: var(--background-color);
+  border-radius: 8px;
+}
+
+.current-value .value {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  display: block;
+  margin-bottom: 10px;
+}
+
+.timestamp {
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+.controls {
+  margin-bottom: 25px;
+}
+
+.controls label {
+  display: block;
+  margin: 15px 0 5px 0;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.controls input {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.controls input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.actuators h4 {
+  margin-bottom: 15px;
+  color: var(--text-color);
+  font-size: 1.1rem;
+}
+
+.actuator-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.actuator-item:last-child {
+  border-bottom: none;
+}
+
+.actuator-item span {
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+/* Toggle Buttons */
+.toggle-btn {
+  position: relative;
+  width: 50px;
+  height: 25px;
+  background: #ccc;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.toggle-btn.large {
+  width: 60px;
+  height: 30px;
+}
+
+.toggle-btn[data-state="on"] {
+  background: var(--success-color);
+}
+
+.toggle-slider {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 21px;
+  height: 21px;
+  background: var(--white);
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-btn.large .toggle-slider {
+  width: 26px;
+  height: 26px;
+}
+
+.toggle-btn[data-state="on"] .toggle-slider {
+  transform: translateX(25px);
+}
+
+.toggle-btn.large[data-state="on"] .toggle-slider {
+  transform: translateX(30px);
+}
+
+/* Automation Panel */
+.automation-panel {
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 30px;
+}
+
+.automation-panel h3 {
+  font-size: 1.5rem;
+  color: var(--text-color);
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.automation-controls {
+  display: flex;
+  justify-content: space-around;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.automation-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  text-align: center;
+}
+
+.automation-item span {
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+@media (max-width: 768px) {
+  .sensors-main h1 {
+    font-size: 2rem;
+  }
+
+  .sensors-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .panel-content {
+    padding: 20px;
+  }
+
+  .current-value .value {
+    font-size: 2rem;
+  }
+
+  .automation-controls {
+    flex-direction: column;
+    align-items: center;
+  }
+}

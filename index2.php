@@ -1,0 +1,181 @@
+<?php
+session_start();
+if (!isset($_SESSION['id'])) {
+    header('Location: api/PageConnection.php');
+    exit();
+}
+?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FraiseConnect Pro - Serre Autonome</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/home.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-seedling"></i>
+                <span>FraiseConnect Pro</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index2.php" class="active">Accueil</a></li>
+                <li><a href="dashboard.php">Tableau de bord</a></li>
+                <li><a href="sensors.php">Capteurs</a></li>
+                <li><a href="api/logout.php">Déconnexion</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Cultivez vos fraises avec intelligence</h1>
+                <p>Surveillez et contrôlez votre serre autonome en temps réel grâce à nos capteurs intelligents</p>
+                <div class="hero-buttons">
+                    <a href="dashboard.php" class="btn btn-primary">Voir le tableau de bord</a>
+                    <a href="index.html" class="btn btn-secondary">Se Déconnecter</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <i class="fas fa-home hero-icon"></i>
+            </div>
+        </section>
+
+        <section class="weather-section">
+            <div class="container">
+                <h2>🌤️ Météo locale</h2>
+                <div class="weather-container">
+                    <div class="current-weather">
+                        <div class="current-weather-main">
+                            <div class="weather-icon" id="currentWeatherIcon">
+                                <i class="fas fa-sun"></i>
+                            </div>
+                            <div class="weather-info">
+                                <div class="current-temp" id="currentTemp">--°C</div>
+                                <div class="weather-description" id="weatherDescription">Chargement...</div>
+                                <div class="weather-location" id="weatherLocation">📍 Votre région</div>
+                            </div>
+                        </div>
+                        <div class="weather-details">
+                            <div class="weather-detail">
+                                <i class="fas fa-tint"></i>
+                                <span>Humidité</span>
+                                <span id="currentHumidity">--%</span>
+                            </div>
+                            <div class="weather-detail">
+                                <i class="fas fa-wind"></i>
+                                <span>Vent</span>
+                                <span id="currentWind">-- km/h</span>
+                            </div>
+                            <div class="weather-detail">
+                                <i class="fas fa-eye"></i>
+                                <span>Visibilité</span>
+                                <span id="currentVisibility">-- km</span>
+                            </div>
+                            <div class="weather-detail">
+                                <i class="fas fa-thermometer-half"></i>
+                                <span>Ressenti</span>
+                                <span id="feelsLike">--°C</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="weather-forecast">
+                        <h3>Prévisions 5 jours</h3>
+                        <div class="forecast-container" id="forecastContainer">
+                            <!-- Les prévisions seront ajoutées dynamiquement -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="weather-impact">
+                    <h3>🍓 Impact sur la culture</h3>
+                    <div class="impact-alerts" id="weatherImpactAlerts">
+                        <div class="impact-alert info">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Analyse de l'impact météorologique en cours...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="container">
+                <h2>Fonctionnalités principales</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-thermometer-half"></i>
+                        <h3>Contrôle de température</h3>
+                        <p>Surveillance continue de la température pour un environnement optimal</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-tint"></i>
+                        <h3>Gestion de l'humidité</h3>
+                        <p>Maintien du taux d'humidité idéal pour vos fraises</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-sun"></i>
+                        <h3>Éclairage intelligent</h3>
+                        <p>Optimisation de l'exposition lumineuse selon les besoins</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Analyses en temps réel</h3>
+                        <p>Graphiques et statistiques détaillées de vos cultures</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-bell"></i>
+                        <h3>Alertes intelligentes</h3>
+                        <p>Notifications automatiques en cas d'anomalie</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-cloud"></i>
+                        <h3>Météo externe</h3>
+                        <p>Intégration des données météorologiques locales</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number" data-target="24">0</span>
+                        <span class="stat-label">°C Température optimale</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" data-target="75">0</span>
+                        <span class="stat-label">% Humidité idéale</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" data-target="12">0</span>
+                        <span class="stat-label">h Éclairage quotidien</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 FraiseConnect Pro. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="scripts/main.js"></script>
+    <script src="scripts/home.js"></script>
+    <script src="scripts/weather.js"></script>
+</body>
+</html>
