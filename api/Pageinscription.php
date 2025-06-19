@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 // Connexion à la base de données
 $host = 'aws-0-eu-west-2.pooler.supabase.com';
 $port = 5432;
@@ -16,32 +18,28 @@ try {
 
 // Traitement du formulaire
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id = $_POST['id'] ?? '';
+    $motdepasse = $_POST['motdepasse'] ?? '';
     $prenom = $_POST['prenom'] ?? '';
     $nom = $_POST['nom'] ?? '';
     $email = $_POST['email'] ?? '';
-    $motdepasse = $_POST['motdepasse'] ?? '';
-    $role = 1; // Rôle par défaut
+    $role = 1; // rôle par défaut
 
-    // Vérification des champs
-    if (empty($prenom) || empty($nom) || empty($email) || empty($motdepasse)) {
+    if (empty($id) || empty($motdepasse) || empty($prenom) || empty($nom) || empty($email)) {
         echo "<p style='color:red;'>Tous les champs sont requis.</p>";
     } else {
         try {
-            // Vérifier si l'email existe déjà
-            $check = $pdo->prepare("SELECT id FROM utilisateur WHERE email = ?");
+            $check = $pdo->prepare("SELECT * FROM utilisateur WHERE email = ?");
             $check->execute([$email]);
 
             if ($check->rowCount() > 0) {
                 echo "<p style='color:red;'>Un utilisateur avec cet e-mail existe déjà.</p>";
             } else {
-                // Hasher le mot de passe
-                $hash = password_hash($motdepasse, PASSWORD_DEFAULT);
-
-                // Insérer dans la base
-                $stmt = $pdo->prepare("INSERT INTO utilisateur (mot_de_passe, prenom, nom, email, role) VALUES (?, ?, ?, ?, ?)");
-                $stmt->execute([$hash, $prenom, $nom, $email, $role]);
+                $stmt = $pdo->prepare("INSERT INTO utilisateur (id, mot_de_passe, prenom, nom, email, role) VALUES (?, ?, ?, ?, ?, ?)");
+                $stmt->execute([$id, $motdepasse, $prenom, $nom, $email, $role]);
 
                 header("Location: ../index.php");
+
                 exit;
             }
         } catch (PDOException $e) {
@@ -56,25 +54,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulaire d'inscription</title>
-    <link rel="stylesheet" href="../styles/Pageinscription.css">
-    <link rel="stylesheet" href="../styles/main.css">
-    <link rel="stylesheet" href="../styles/auth.css">
+    <link rel="stylesheet" href="Pageinscription.css">
 </head>
 <body>
-<nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <i class="fas fa-seedling"></i>
-                <span>FraiseConnect Pro</span>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="../index.html">Accueil</a></li>
-                <li><a href="../dashboard.php">Tableau de bord</a></li>
-                <li><a href="../sensors.php">Capteurs</a></li>
-                <li><a href="PageConnection.php" class="active">Connexion</a></li>
-            </ul>
-        </div>
-    </nav>
     
 
     <form action="" method="post">
